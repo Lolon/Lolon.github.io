@@ -2,6 +2,9 @@ var mgr;
 let currentTime;
 let Slide1;
 let Slide2;
+let Slide3;
+let Slide4;
+let Slide5;
 
 function preload(){
   dagger = loadImage("https://lolon.github.io/images/dagger.png")
@@ -18,9 +21,14 @@ function preload(){
     mgr.addScene (Intro);
     mgr.addScene (Beach);
     mgr.addScene (Meeting);
-    mgr.showScene(Meeting); //this will show the scene
+    mgr.addScene (Crowd);
+    mgr.showScene(Crowd); //this will show the scene
     Slide1 = 1000;
     Slide2 = Slide1 + 10000;
+    Slide3 = Slide2 + 10000;
+    Slide4 = Slide3 + 10000;
+    Slide5 = Slide4 + 10000;
+
   }
   function draw(){
     currentTime = millis();
@@ -87,8 +95,17 @@ function Meeting(){
     //table
     image(table,90,300);
     image(table,10,500,436*2,214*2);
-    image(PinkPerson,90,300);
-    image(BluePerson,400,300);
+    //pink and blue
+    image(PinkPerson,130,250);
+    image(BluePerson,425,300);
 
+  }
+}
+function Crowd(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(99,122,110);
   }
 }
