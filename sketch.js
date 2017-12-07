@@ -5,6 +5,9 @@ let Slide2;
 
 function preload(){
   dagger = loadImage("https://lolon.github.io/images/dagger.png")
+  table = loadImage("https://lolon.github.io/images/table.png")
+  PinkPerson = loadImage("https://lolon.github.io/images/PinkPerson.png")
+  BluePerson = loadImage("https://lolon.github.io/images/BluePerson.png")
 
 }
   function setup()
@@ -81,8 +84,11 @@ function Meeting(){
     //floor
     fill(249,209,157);
     rect(0,450,594,500);
-
-
+    //table
+    image(table,90,300);
+    image(table,10,500,436*2,214*2);
+    image(PinkPerson,90,300);
+    image(BluePerson,400,300);
 
   }
 }
