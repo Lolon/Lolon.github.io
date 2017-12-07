@@ -9,10 +9,12 @@ function setup() {
   BeginDiorama = new Diorama(0);
     BeginDiorama.isTicking = true;
     BeginDiorama.isDrawing = true;
+    BeginDiorama.beBGX = 594;
+    BeginDiorama.DagX = 150;
+    BeginDiorama.TextX = 110;
   BeachDiorama = new Diorama(1);
 
 
-  //startClick.mouseClicked(Start);
   }
 
 function draw() {             //every tick
@@ -26,35 +28,41 @@ function draw() {             //every tick
 function mouseClicked(){
   //logic for randomising events
   console.log("click");
-  BeachDiorama.displayDio();
-  BeginDiorama.BHide = true;
+  BeginDiorama.OutAnim = true;
 }
 
 class Diorama {
   constructor(DioUnit){
     this.DioUnit = DioUnit;
-    var BHide = false;
     let isTicking = true;
     var isDrawing = true;
+    let OutAnim = false;
+    let beBGX = 594;
+    let DagX = 150;
+    let TextX = 110;
   }
 
   DioTick (){
-    console.log("tick");
+    //console.log("tick");
     if (this.isDrawing){
       this.displayDio();
+      }
+    if (this.OutAnim){
+      this.hideDio();
     }
-
   }
+
   displayDio(){
     this.isTicking = true;
     if (this.DioUnit == 0){
+      push();
       fill (51);
-      let beBGX = 594;
-      rect (0,0,beBGX,841);
-      image(dagger,150,75);
+      rect (0,0,this.beBGX,841);
+      image(dagger,this.DagX,75);
       fill (102,153,255);
       textSize(100);
-      text("BEGIN",110,675);
+      text("BEGIN",this.TextX,675);
+      pop();
     }
     else if (this.DioUnit == 1) {
     }
@@ -64,8 +72,13 @@ class Diorama {
   }
   hideDio(){
     if (this.DioUnit == 0){
-      this.beBGX =- 2
-      console.log("hiding");
+      if (this.beBGX <-100){
+        this.isTicking = false;
+      }
+      this.beBGX =this.beBGX-10;
+      this.DagX = this.DagX - 5;
+      this.TextX = this.TextX - 12;
+      console.log(this.beBGX);
     }
   }
 }
