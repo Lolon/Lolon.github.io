@@ -1,4 +1,7 @@
 var mgr;
+let currentTime;
+let Slide1;
+let Slide2;
 
 function preload(){
   dagger = loadImage("https://lolon.github.io/images/dagger.png")
@@ -10,9 +13,17 @@ function preload(){
     createCanvas(594, 841);
     mgr = new SceneManager();
     mgr.addScene (Intro);
-    mgr.showScene(Intro); //this will show the scene
+    mgr.addScene (Beach);
+    mgr.addScene (Meeting);
+    mgr.showScene(Meeting); //this will show the scene
+    Slide1 = 1000;
+    Slide2 = Slide1 + 10000;
   }
   function draw(){
+    currentTime = millis();
+    //console.log(currentTime);
+    stroke(0,0,0,0);
+
     mgr.draw();
   }
 
@@ -29,17 +40,49 @@ function Intro()
       fill (102,153,255);
       textSize(100);
       text("BEGIN",110,675);
+      if (currentTime >Slide1){
+        console.log("next");
+        mgr.showScene(Meeting);
+      }
     }
-
-
-}
+  }
 
 // Main games scene constructor function
-function Game()
-{
+function Beach(){
     this.setup = function() {
     }
 
     this.draw = function() {
+      background(104,217,245);
+      fill(245,183,104);
+      rect(0,450,594,450)
     }
+}
+function Meeting(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(246,187,131);
+    //sun
+    fill (255,238,96);
+    ellipse(100,400,350,350);
+    //buidlings
+    fill(97,98,86);
+    rect(100,200,100,500);
+    rect(250,300,100,500);
+    rect(400,275,100,500);
+    //inside
+    fill(187,181,141);
+    rect(0,0,594,50);
+    rect(0,0,50,800);
+    rect(594-50,0,50,800);
+    rect(0,400,594,500);
+    //floor
+    fill(249,209,157);
+    rect(0,450,594,500);
+
+
+
+  }
 }
