@@ -11,6 +11,7 @@ function preload(){
   table = loadImage("https://lolon.github.io/images/table.png")
   PinkPerson = loadImage("https://lolon.github.io/images/PinkPerson.png")
   BluePerson = loadImage("https://lolon.github.io/images/BluePerson.png")
+  FgCrowd = loadImage("https://lolon.github.io/images/FgCrowd.png")
 
 }
   function setup()
@@ -22,7 +23,12 @@ function preload(){
     mgr.addScene (Beach);
     mgr.addScene (Meeting);
     mgr.addScene (Crowd);
-    mgr.showScene(Crowd); //this will show the scene
+    mgr.addScene (forest);
+    mgr.addScene (escape);
+    mgr.addScene (city);
+    mgr.addScene (end);
+
+    mgr.showScene(end); //this will show the scene
     Slide1 = 1000;
     Slide2 = Slide1 + 10000;
     Slide3 = Slide2 + 10000;
@@ -107,5 +113,72 @@ function Crowd(){
   }
   this.draw = function(){
     background(99,122,110);
+    image(FgCrowd,130,250,153*0.75,411*0.75);
+    image(PinkPerson,130,250,65*1.5,176*1.5);
+  }
+}
+function forest(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(72,238,235);
+    fill(35,49,29);
+    rect(0,400,594,500);
+    fill(51,38,35);
+    quad(150,841,100,841,300,615,350,615);
+    quad(250,841,200,841,400,615,450,615);
+    //tree
+    fill(62,53,44);
+    rect(73,250,50,75);
+    fill(49,146,40);
+    triangle(100,0+120,0,150+120,200,150+120);
+    fill(55,164,45);
+    triangle(100,0+80,0,150+80,200,150+80);
+    fill(63,179,52);
+    triangle(100,0+40,0,150+40,200,150+40);
+    fill(73,198,61);
+    triangle(100,0,0,150,200,150);
+
+
+  }
+}
+function escape(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(61,84,84);
+    //floor
+    fill(74,105,105);
+    quad(0+100,500,594-100,500,594+200,841,0-200,841);
+    //594, 841
+    //ceiling
+    fill(62,71,71);
+    quad(0+100,200,594-100,200,594+200,0,0-200,0);
+    //window
+    fill(64,249,249);
+    rect(350,250,100,100);
+
+  }
+}
+function city(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(24,14,1);
+    fill(208,186,157);
+    ellipse(150,200,250,250);
+  }
+}
+function end(){
+  this.setup = function(){
+
+  }
+  this.draw = function(){
+    background(18,46,88);
+    fill(150,168,179);
+    ellipse(400,200,250,250);
   }
 }
