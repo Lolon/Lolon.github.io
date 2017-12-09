@@ -12,10 +12,11 @@ function preload(){
   PinkPerson = loadImage("https://lolon.github.io/images/PinkPerson.png")
   BluePerson = loadImage("https://lolon.github.io/images/BluePerson.png")
   FgCrowd = loadImage("https://lolon.github.io/images/FgCrowd.png")
+  Beach_umbrella_blanket = loadImage("https://lolon.github.io/images/Beach_umbrella_blanket.png")
 
 }
-  function setup()
-  {
+
+function setup(){
     console.log("setup");
     createCanvas(594, 841);
     mgr = new SceneManager();
@@ -28,7 +29,7 @@ function preload(){
     mgr.addScene (city);
     mgr.addScene (end);
 
-    mgr.showScene(end); //this will show the scene
+    mgr.showScene(Beach); //this will show the scene
     Slide1 = 1000;
     Slide2 = Slide1 + 10000;
     Slide3 = Slide2 + 10000;
@@ -36,7 +37,7 @@ function preload(){
     Slide5 = Slide4 + 10000;
 
   }
-  function draw(){
+function draw(){
     currentTime = millis();
     //console.log(currentTime);
     stroke(0,0,0,0);
@@ -44,8 +45,7 @@ function preload(){
     mgr.draw();
   }
 
-function Intro()
-{
+function Intro(){
     this.setup = function() {
 
     }
@@ -71,10 +71,14 @@ function Beach(){
 
     this.draw = function() {
       background(104,217,245);
+      fill(104,149,245);
+      rect(0,300,594,450);
       fill(245,183,104);
       rect(0,450,594,450)
+      image(Beach_umbrella_blanket,500,300);
     }
 }
+
 function Meeting(){
   this.setup = function(){
 
@@ -107,6 +111,7 @@ function Meeting(){
 
   }
 }
+
 function Crowd(){
   this.setup = function(){
 
@@ -117,6 +122,7 @@ function Crowd(){
     image(PinkPerson,130,250,65*1.5,176*1.5);
   }
 }
+
 function forest(){
   this.setup = function(){
 
@@ -143,6 +149,7 @@ function forest(){
 
   }
 }
+
 function escape(){
   this.setup = function(){
 
@@ -162,6 +169,7 @@ function escape(){
 
   }
 }
+
 function city(){
   this.setup = function(){
 
@@ -172,6 +180,7 @@ function city(){
     ellipse(150,200,250,250);
   }
 }
+
 function end(){
   this.setup = function(){
 
