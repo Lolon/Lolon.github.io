@@ -15,6 +15,14 @@ function preload(){
   Beach_umbrella_blanket = loadImage("https://lolon.github.io/images/Beach_umbrella_blanket.png")
   beach_wave = loadImage("https://lolon.github.io/images/beach_wave.png")
   forest_blood = loadImage("https://lolon.github.io/images/forest_blood.png")
+  escape_grill = loadImage("https://lolon.github.io/images/escape_grill.png")
+  city_car = loadImage("https://lolon.github.io/images/city_car.png")
+  city_fgBuildings = loadImage("https://lolon.github.io/images/city_fgBuildings.png")
+  city_lamp = loadImage("https://lolon.github.io/images/city_lamp.png")
+  city_mgBuildings = loadImage("https://lolon.github.io/images/city_mgBuildings.png")
+  city_puddles = loadImage("https://lolon.github.io/images/city_puddles.png")
+  end_policeCar = loadImage("https://lolon.github.io/images/end_policeCar.png")
+
 
 }
 
@@ -31,7 +39,7 @@ function setup(){
     mgr.addScene (city);
     mgr.addScene (end);
 
-    mgr.showScene(forest); //this will show the scene
+    mgr.showScene(end); //this will show the scene
     Slide1 = 1000;
     Slide2 = Slide1 + 10000;
     Slide3 = Slide2 + 10000;
@@ -217,9 +225,21 @@ function escape(){
     //ceiling
     fill(62,71,71);
     quad(0+100,200,594-100,200,594+200,0,0-200,0);
+    image(escape_grill,300,510);
     //window
+    fill(64,249,249,50);
+    quad(350,250,450,350,200,1541,-300,400);
     fill(64,249,249);
     rect(350,250,100,100);
+    //bars
+    fill(38,31,31);
+    rect(25,0,50,841);
+    rect(275,0,50,841);
+    rect(525,0,50,841);
+    //people
+    tint(100,255);
+    image(FgCrowd,-150,350,153*2,411*2);
+    image(FgCrowd,475,350,153*2,411*2);
 
   }
 }
@@ -232,6 +252,11 @@ function city(){
     background(24,14,1);
     fill(208,186,157);
     ellipse(150,200,250,250);
+    image(city_mgBuildings,100,0);
+    image(city_fgBuildings,0,200,752*0.8,861*0.8);
+    image(city_car,350,700,391*0.5,226*0.5);
+    image(city_lamp,0,400,1000*0.5,1000*0.5);
+
   }
 }
 
@@ -243,5 +268,16 @@ function end(){
     background(18,46,88);
     fill(150,168,179);
     ellipse(400,200,250,250);
+    fill (36,37,38);
+    rect(25,0,250,700);
+    rect(325,0,250,700);
+    fill (60,61,63);
+    rect(0,600,600,700);
+    //car
+    fill(45,124,243,150);
+    ellipse(225,450,400,400);
+    fill(243,45,63,150);
+    ellipse(300,450,400,400);
+    image(end_policeCar,100,500);
   }
 }
