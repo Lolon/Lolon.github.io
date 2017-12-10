@@ -13,6 +13,7 @@ let Slide2time;
 let Slide3time;
 let Slide4time;
 let Slide5time;
+let Endtime;
 let startScreen = true;
 let SlideArray = [Beach,Meeting,Crowd,forest,escape,city];
 
@@ -55,6 +56,7 @@ function setup(){
     Slide3time = Slide2time + 10000;
     Slide4time = Slide3time + 10000;
     Slide5time = Slide4time + 10000;
+    Endtime = Slide5time + 10000;
 
   }
 function draw(){
@@ -62,10 +64,31 @@ function draw(){
     stroke(0,0,0,0);
     if (!startScreen){
       runningTime = millis() - currentTime;
-    //  var test = SlideArray[Slide1];
-      //console.log(test);
+    //  var test = SlideArray[Slide1-1];
+     //console.log(runningTime);
       if (runningTime >Slide1time){
-        //mgr.showScene(SlideArray[Slide1]);
+        console.log("Slide1");
+        mgr.showScene(SlideArray[Slide1-1]);
+      }
+      if (runningTime>Slide2time) {
+        console.log("Slide2");
+        mgr.showScene(SlideArray[Slide2-1])
+      }
+      if (runningTime>Slide3time) {
+        console.log("Slide3");
+        mgr.showScene(SlideArray[Slide3-1])
+      }
+      if (runningTime>Slide4time) {
+        console.log("Slide4");
+        mgr.showScene(SlideArray[Slide4-1])
+      }
+      if (runningTime>Slide5time) {
+        console.log("Slide5");
+        mgr.showScene(SlideArray[Slide5-1])
+      }
+      if (runningTime>Endtime) {
+        console.log("end");
+        mgr.showScene(end);
       }
     }
     mgr.draw();
