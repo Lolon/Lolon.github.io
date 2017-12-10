@@ -1,10 +1,20 @@
 var mgr;
 let currentTime;
+let runningTime;
 let Slide1;
 let Slide2;
 let Slide3;
 let Slide4;
 let Slide5;
+let Slide6;
+
+let Slide1time;
+let Slide2time;
+let Slide3time;
+let Slide4time;
+let Slide5time;
+let startScreen = true;
+let SlideArray = [Beach,Meeting,Crowd,forest,escape,city];
 
 function preload(){
   dagger = loadImage("https://lolon.github.io/images/dagger.png")
@@ -39,20 +49,94 @@ function setup(){
     mgr.addScene (city);
     mgr.addScene (end);
 
-    mgr.showScene(end); //this will show the scene
-    Slide1 = 1000;
-    Slide2 = Slide1 + 10000;
-    Slide3 = Slide2 + 10000;
-    Slide4 = Slide3 + 10000;
-    Slide5 = Slide4 + 10000;
+    mgr.showScene(Intro); //this will show the scene
+    Slide1time = 1000;
+    Slide2time = Slide1time + 10000;
+    Slide3time = Slide2time + 10000;
+    Slide4time = Slide3time + 10000;
+    Slide5time = Slide4time + 10000;
 
   }
 function draw(){
-    currentTime = millis();
     //console.log(currentTime);
     stroke(0,0,0,0);
-
+    if (!startScreen){
+      runningTime = millis() - currentTime;
+    //  var test = SlideArray[Slide1];
+      //console.log(test);
+      if (runningTime >Slide1time){
+        //mgr.showScene(SlideArray[Slide1]);
+      }
+    }
     mgr.draw();
+  }
+
+function mousePressed (){
+  //console.log("Hoooo!");
+  if (startScreen === true){
+    currentTime = millis();
+    ConstuctStory();
+    startScreen = false;
+  }
+}
+
+function ConstuctStory (){ //sets which slides are shown in what what order
+
+  Slide1 = ceil(random() * 6);
+  console.log(Slide1);
+  Slide2 = ceil(random() * 6);
+  noCheck(Slide2,2);
+  console.log(Slide2);
+  Slide3 = ceil(random() * 6);
+  noCheck(Slide3,3);
+  console.log(Slide3);
+  Slide4 = ceil(random() * 6);
+  noCheck(Slide4,4);
+  console.log(Slide4);
+  Slide5 = ceil(random() * 6);
+  noCheck(Slide5,5);
+  console.log(Slide5);
+
+  function noCheck(no,int){
+
+    if (int===2){
+      if (no === Slide1 ||no === Slide3||no === Slide4||no === Slide5 ){
+        console.log("recursion found");
+        no = ceil(random() * 6);
+        Slide2 = no;
+        noCheck(Slide2,2);
+      }
+    }
+    else if (int===3) {
+        if (no === Slide1 ||no === Slide2||no === Slide4||no === Slide5 ){
+          console.log("recursion found");
+          no = ceil(random() * 6);
+          Slide3 = no;
+
+          noCheck(Slide3,3);
+        }
+      }
+    else if (int===4) {
+        if (no === Slide1 ||no === Slide2||no === Slide3||no === Slide5 ){
+          console.log("recursion found");
+          no = ceil(random() * 6);
+          Slide4 = no;
+
+          noCheck(Slide4,4);
+        }
+      }
+    else if (int===5) {
+        if (no === Slide1 ||no === Slide2||no === Slide3||no === Slide4 ){
+        console.log("recursion found");
+        no = ceil(random() * 6);
+        Slide5 = no;
+        noCheck(Slide5,5);
+        }
+      }
+    else {
+        return;
+      }
+    }
   }
 
 function Intro(){
@@ -67,10 +151,6 @@ function Intro(){
       fill (102,153,255);
       textSize(100);
       text("BEGIN",110,675);
-      if (currentTime >Slide1){
-        console.log("next");
-        mgr.showScene(Meeting);
-      }
     }
   }
 
@@ -198,19 +278,19 @@ function forest(){
 }
 
 function showTree(locX,locY,){
-//tree
-fill(62,53,44);
-rect(locX+73,locY+250,50,75);
-fill(49,146,40);
-triangle(locX+100,locY+120,locX+0,locY+150+120,locX+200,locY+150+120);
-fill(55,164,45);
-triangle(locX+100,locY+80,locX+0,locY+150+80,locX+200,locY+150+80);
-fill(63,179,52);
-triangle(locX+100,locY+40,locX+0,locY+150+40,locX+200,locY+150+40);
-fill(73,198,61);
-triangle(locX+100,locY+0,locX+0,locY+150,locX+200,locY+150);
-}
-}
+  //tree
+  fill(62,53,44);
+  rect(locX+73,locY+250,50,75);
+  fill(49,146,40);
+  triangle(locX+100,locY+120,locX+0,locY+150+120,locX+200,locY+150+120);
+  fill(55,164,45);
+  triangle(locX+100,locY+80,locX+0,locY+150+80,locX+200,locY+150+80);
+  fill(63,179,52);
+  triangle(locX+100,locY+40,locX+0,locY+150+40,locX+200,locY+150+40);
+  fill(73,198,61);
+  triangle(locX+100,locY+0,locX+0,locY+150,locX+200,locY+150);
+  }
+  }
 
 function escape(){
   this.setup = function(){
