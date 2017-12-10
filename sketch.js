@@ -7,7 +7,6 @@ let Slide3;
 let Slide4;
 let Slide5;
 let Slide6;
-
 let Slide1time;
 let Slide2time;
 let Slide3time;
@@ -15,7 +14,10 @@ let Slide4time;
 let Slide5time;
 let Endtime;
 let startScreen = true;
+let debug = true;
 let SlideArray = [Beach,Meeting,Crowd,forest,escape,city];
+
+let WaveArray = [];
 
 function preload(){
   dagger = loadImage("https://lolon.github.io/images/dagger.png")
@@ -50,7 +52,7 @@ function setup(){
     mgr.addScene (city);
     mgr.addScene (end);
 
-    mgr.showScene(Intro); //this will show the scene
+    mgr.showScene(end); //this will show the scene
     Slide1time = 1000;
     Slide2time = Slide1time + 10000;
     Slide3time = Slide2time + 10000;
@@ -97,9 +99,12 @@ function draw(){
 function mousePressed (){
   //console.log("Hoooo!");
   if (startScreen === true){
+    if(debug){    }
+    else {
     currentTime = millis();
     ConstuctStory();
     startScreen = false;
+    }
   }
 }
 
@@ -180,6 +185,9 @@ function Intro(){
 // Main games scene constructor function
 function Beach(){
     this.setup = function() {
+      for(let i=0; i<5;i++){
+        WaveArray[i] = new Wave(random(width)-100,random(100)+300,0,0,random(2));
+      }
     }
 
     this.draw = function() {
@@ -190,13 +198,15 @@ function Beach(){
 
       //sea
       fill(104,149,245);
-      rect(0,300,594,450);
+      rect(0,300,594,150);
       //beach
       fill(245,183,104);
       rect(0,450,594,450)
-      //wave
-      tint(255,127);
-      image(beach_wave, 100,350);
+
+      for (let i=0; i<WaveArray.length; i++){
+        WaveArray[i].Update();
+      }
+      //blanket
       noTint();
       image(Beach_umbrella_blanket,200,325);
       //police line
@@ -213,13 +223,46 @@ function Beach(){
       //594, 841
     }
 }
+class Wave{
+  constructor(x,y,waveSinVal,waveTint,offset){
+  this.x = x;
+  this.y = y;
+  this.waveSinVal = waveSinVal;
+  this.waveTint = waveTint;
+  this.offset = offset;
+  }
+  Update(){
+    //wave
+    this.waveSinVal = this.waveSinVal+(TWO_PI/500.0);
+    this.waveTint = sin(this.waveSinVal)+this.offset;
+    console.log(this.waveTint);
+    push();
+    tint(255,(this.waveTint+1)*100);
+    image(beach_wave, this.x,this.y);
+    this.x = this.x+0.1;
+    pop();
+  }
+}
 
 function Meeting(){
+  let foreground = 0;
+  let midground = 0;
+  let bg = 0;
+  let showntime;
+  let timebefore;
+  let bluewalkinUnit = 800;
   this.setup = function(){
+      timebefore = runningTime;
 
   }
   this.draw = function(){
+
+    showntime = millis() - timebefore
+    console.log(showntime);
     background(246,187,131);
+
+    translate(bg,0)
+    bg = bg-0.05;
     //sun
     fill (255,238,96);
     ellipse(100,400,350,350);
@@ -228,75 +271,131 @@ function Meeting(){
     rect(100,200,100,500);
     rect(250,300,100,500);
     rect(400,275,100,500);
+
+    translate(midground,0)
+    midground = midground-0.1;
     //inside
     fill(187,181,141);
     rect(0,0,594,50);
     rect(0,0,50,800);
-    rect(594-50,0,50,800);
+    rect(594-50,0,500,800);
     rect(0,400,594,500);
     //floor
     fill(249,209,157);
-    rect(0,450,594,500);
+    rect(0,450,694,500);
     //table
-    image(table,90,300);
-    image(table,10,500,436*2,214*2);
-    //pink and blue
-    image(PinkPerson,130,250);
-    image(BluePerson,425,300);
 
+    image(table,90,300);
+    //pink and blue
+
+    image(PinkPerson,130,250);
+
+    if (showntime>5000){
+      if(bluewalkinUnit<400){}
+      else {
+      bluewalkinUnit=bluewalkinUnit-1;
+        }
+    }
+
+    image(BluePerson,bluewalkinUnit,300);
+
+
+    translate(foreground,0)
+    foreground = foreground-0.5;
+    image(table,10,500,436*2,214*2);
   }
 }
 
 function Crowd(){
+
+  let foreground = 0;
+  let midground = 0;
+  let furtherground = 0;
+  let bg = 0;
+
   this.setup = function(){
 
   }
   this.draw = function(){
     background(99,122,110);
     //far
-    tint(255,50);
-    image(FgCrowd,130,100,153*0.4,411*0.4);
-    noTint();
+    translate(bg,0)
+    bg = bg-0.5;
+    for(let i=0;i<15;i++){
+      tint(255,50);
+      image(FgCrowd,i*75,150,153*0.4,411*0.4);
+      noTint();
+    }
+
     //closer
+    translate(midground,0)
+    midground = midground+2;
+    for(let i=0;i<15;i++){
     tint(255,150);
-    image(FgCrowd,130,200,153*0.5,411*0.5);
+    image(FgCrowd,i*100-200,200,153*0.5,411*0.5);
     noTint();
+    }
+
     //close
-    image(FgCrowd,130,300,153*0.75,411*0.75);
-    image(PinkPerson,130,350,65*1.5,176*1.5);
+    translate(furtherground,0)
+    furtherground = furtherground-4;
+    for(let i=0;i<15;i++){
+    image(FgCrowd,i*130,300,153*0.75,411*0.75);
+    }
+        image(PinkPerson,600,475,65*1.5,176*1.5);
     //fg crowd
+    translate(foreground,0)
+    foreground = foreground+4;
+    for(let i=0;i<20;i++){
     tint(200);
-    image(FgCrowd,130,450,153*0.9,411*0.9);
+    image(FgCrowd,i*175-500,450,153*0.9,411*0.9);
+    }
   }
 }
 
 function forest(){
+
+  let foreground = 0;
+  let midground = 0;
+  let bg = 0;
+
   this.setup = function(){
 
   }
   this.draw = function(){
     background(72,238,235);
+
+    push();
+    translate(foreground,0)
+
     fill(35,49,29);
-    rect(0,500,594,500);
+    rect(0,500,694,500);
     fill(51,38,35);
     quad(150,841,100,841,300,615,350,615);
     quad(250,841,200,841,400,615,450,615);
-    image(forest_blood,0,0);
+    image(forest_blood,200,650);
+
+    translate(bg,0)
+    bg = bg-0.005;
     showTree(0,300);
     showTree(225,300);
     showTree(525,300);
+    translate(midground,0)
+    midground = midground-0.01;
     background('rgba(13,51,10,0.1)');
     showTree(-50,350);
     showTree(125,350);
     showTree(425,350);
+
+    translate(foreground,0)
+    foreground = foreground-0.05;
     background('rgba(13,51,10,0.1)');
     //fg
     showTree(-150,400);
     showTree(50,400);
     showTree(325,400);
     showTree(525,400);
-
-
+    pop();
 
 }
 
@@ -316,11 +415,17 @@ function showTree(locX,locY,){
   }
 
 function escape(){
+  let foreground = 0;
+  let midground = 0;
+  let bg = 0;
+
   this.setup = function(){
 
   }
   this.draw = function(){
     background(61,84,84);
+    translate(bg,0)
+    bg = bg-0.05;
     //floor
     fill(74,105,105);
     quad(0+100,500,594-100,500,594+200,841,0-200,841);
@@ -334,6 +439,8 @@ function escape(){
     quad(350,250,450,350,200,1541,-300,400);
     fill(64,249,249);
     rect(350,250,100,100);
+    translate(midground,0)
+    midground = midground-0.075;
     //bars
     fill(38,31,31);
     rect(25,0,50,841);
@@ -348,6 +455,9 @@ function escape(){
 }
 
 function city(){
+  let foreground = 0;
+  let midground = 0;
+  let bg = 0;
   this.setup = function(){
 
   }
@@ -355,28 +465,56 @@ function city(){
     background(24,14,1);
     fill(208,186,157);
     ellipse(150,200,250,250);
-    image(city_mgBuildings,100,0);
-    image(city_fgBuildings,0,200,752*0.8,861*0.8);
-    image(city_car,350,700,391*0.5,226*0.5);
-    image(city_lamp,0,400,1000*0.5,1000*0.5);
+    translate(bg,0)
+    bg = bg+1;
 
+    for(let i=0;i<5;i++){
+    image(city_mgBuildings,i*859-1000,0);
+    }
+
+    translate(midground,0);
+    midground = midground+2;
+    for(let i=0;i<5;i++){
+    image(city_fgBuildings,i*752-2000,200,752*0.8,861*0.8);
+    image(city_puddles,i*500-2000,750, 944*0.5,202*0.5);
+    }
+
+    push();
+    translate(midground*-2,0);
+    image(city_car,350,700,391*0.5,226*0.5);
+    pop();
+
+    translate(foreground,0);
+    foreground = foreground+4;
+    for(let i=0;i<15;i++){
+    image(city_lamp,i*500-4000,400,1000*0.5,1000*0.5);
+    }
   }
 }
 
 function end(){
+  let foreground = 0;
+  let midground = 0;
+  let bg = 0;
   this.setup = function(){
 
   }
   this.draw = function(){
     background(18,46,88);
+
     fill(150,168,179);
     ellipse(400,200,250,250);
+
+    translate(bg,0)
+    bg = bg-10;
     fill (36,37,38);
-    rect(25,0,250,700);
-    rect(325,0,250,700);
+    for(let i=0;i<25;i++){
+    rect(i*350,0,250,700);
+    }
     fill (60,61,63);
-    rect(0,600,600,700);
+    rect(0,600,10000,700);
     //car
+    translate(bg*-1,0);
     fill(45,124,243,150);
     ellipse(225,450,400,400);
     fill(243,45,63,150);
