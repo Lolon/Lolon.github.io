@@ -511,5 +511,9 @@ function end(){
     fill(243,45,63,150);
     ellipse(300,450,400,400);
     image(end_policeCar,100,500);
+    //end text
+    fill (102,153,255); //begin
+    textSize(100);
+    text("END",200,750);
   }
 }
