@@ -14,7 +14,7 @@ let Slide4time;
 let Slide5time;
 let Endtime;
 let startScreen = true;
-let debug = true;
+let debug = false;
 let SlideArray = [Beach,Meeting,Crowd,forest,escape,city];
 
 let WaveArray = [];
@@ -41,7 +41,8 @@ function preload(){
 
 function setup(){
     console.log("setup");
-    createCanvas(594, 841);
+    var canvas = createCanvas(594, 841);
+      canvas.parent("myContainer");
     mgr = new SceneManager();
     mgr.addScene (Intro);
     mgr.addScene (Beach);
@@ -52,7 +53,7 @@ function setup(){
     mgr.addScene (city);
     mgr.addScene (end);
 
-    mgr.showScene(end); //this will show the scene
+    mgr.showScene(Intro); //this will show the scene
     Slide1time = 1000;
     Slide2time = Slide1time + 10000;
     Slide3time = Slide2time + 10000;
