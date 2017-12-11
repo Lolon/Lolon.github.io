@@ -1,24 +1,27 @@
+
+<!--starting logic required for all html -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Generating Stories</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Generating Stories</title> <!--the title of the page-->
+    <link rel="stylesheet" href="style.css"> <!--Linking and applying the used css file-->
+    <!--inclusion of the p5 code and other libraries. I do not use p5.sound, but I included it for experimentation -->
     <script src="libraries/p5.js" type="text/javascript"></script>
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
     <script src="libraries/p5.sound.js" type="text/javascript"></script>
-    <script src="libraries/scenemanager.js" type="text/javascript"></script>
+    <script src="libraries/scenemanager.js" type="text/javascript"></script> <!--scene manager library allows the canvas to change to a seperate scene-->
     <script src="sketch.js" type="text/javascript"></script>
-    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
+    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style> <!--allows the page to fill the screen, removing padding-->
 
   </head>
   <body>
     <header>
-      <h1>Generating Stories</h1>
+      <h1>Generating Stories</h1> <!--title text -->
     </header>
-      <div id="myContainer"></div>
+      <div id="myContainer"></div> <!--the canvas, under the ID of myContainer-->
     <footer>
-      <h2>click "BEGIN" to start a generating story</h2>
+      <h2>click "BEGIN" to start a generating story</h2> <!--the instructions at the bottom of the page -->
     </footer>
   </body>
 </html>
